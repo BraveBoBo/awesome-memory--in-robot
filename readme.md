@@ -13,7 +13,7 @@
 
 本综述关注记忆如何支持机器人的闭环感知与动作决策。核心问题是：在可控的计算、延迟与存储成本下，从历史中保留哪些信息，以何种形式保留，以及何时写入和读取。
 
-本文主要覆盖单 episode 内的感知、动作与任务状态记忆，同时纳入跨示范经验检索、高层规划记忆和终身记忆。纯精态多帧输入只在其构成有意义的历史基线时纳入。
+本文主要覆盖单 episode 内的感知、动作与任务状态记忆，同时纳入跨示范经验检索、高层规划记忆和终身记忆。纯静态多帧输入只在其构成有意义的历史基线时纳入。
 
 ## 2. 分类框架与统一术语
 
@@ -45,6 +45,7 @@
 | [Efficient Long-Horizon VLA Models via Static-Dynamic Disentanglement](https://arxiv.org/abs/2602.03983) | 分离静态与动态视觉 token，通过 recache gate 更新静态内容 | 降低多帧冗余 |
 | [TempoFit: Plug-and-Play Layer-Wise Temporal KV Memory](https://arxiv.org/abs/2603.07647) | 缓存中间层 prefix K/V，相似度检索并施加时间衰减 | training-free 时间 KV 记忆 |
 | [TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness](https://arxiv.org/abs/2412.10345) | 将状态—动作轨迹渲染为当前图像上的视觉 trace | 无需潜在记忆库 |
+| [Instruction-driven History-aware Policies for Robotic Manipulations](https://arxiv.org/abs/2209.04899) | 联合编码语言、多视角观测与完整动作历史 | 早期全历史操作策略；CoRL 2022 |
 
 ### 3.2 显式记忆库、检索与压缩
 
@@ -54,7 +55,7 @@
 |---|---|---|
 | [MemoryVLA: Perceptual-Cognitive Memory in VLA Models](https://arxiv.org/abs/2508.19236) | working memory、perceptual-cognitive bank、检索与冗余合并 | 感知—认知记忆库 |
 | [MemoAct: Atkinson–Shiffrin-Inspired Memory-Augmented Visuomotor Policy](https://arxiv.org/abs/2603.18494) | 无损短期记忆、压缩长期记忆与相似度合并 | 工作/长期记忆 |
-| [LaMem-VLA: Dual Latent Memory in Vision-Language-Action Models](https://arxiv.org/abs/2607.07608) | 检索和压缩视觉、语义与动作潜在表征 | 短期视觉与长期语义/动作 vault |
+| [Dual Latent Memory in Vision-Language-Action Models for Robotic Manipulation (LaMem-VLA)](https://arxiv.org/abs/2607.07608) | 检索和压缩视觉、语义与动作潜在表征 | 短期视觉与长期语义/动作 vault |
 | [VPWEM: Non-Markovian Visuomotor Policy with Working and Episodic Memory](https://arxiv.org/abs/2603.04910) | 近期 working window 与递归 episodic compressor | 工作/情景记忆 |
 | [PAM: Resolving State Ambiguity via Adaptive Working Memory Recoding](https://arxiv.org/abs/2512.24638) | 多时间范围 query、working-memory recoding 与历史重建 | 尺度自适应记忆 |
 | [MemoryVAM: Integrating Memory into Video Action Model for Robot Manipulation](https://arxiv.org/abs/2606.20679) | Perceiver Recap Compressor 与任务进度 Cue Gate | 视频模型与动作解码器共享记忆 |
@@ -62,6 +63,10 @@
 | [Gated Memory Policy](https://arxiv.org/abs/2604.18933) | 学习何时读取历史以及读取哪些内容 | 门控交叉注意力记忆 |
 | [AURA-Mem: Action-Gated Memory for Robot Policies at Constant VRAM](https://arxiv.org/abs/2606.02775) | 在 action-relevant surprise 时写入固定大小 fast-weight state | O(1) 状态显存 |
 | [TFP: Temporally Conditioned Memory-Fusion Policies for Visuomotor Learning](https://arxiv.org/abs/2607.08283) | 以显式时间条件融合 latent belief 与记忆 | elapsed-time-conditioned dynamics |
+| [HALO: Memory Retrieval in Visuomotor Policies for Long-Horizon Robot Control](https://arxiv.org/abs/2606.25136) | 从图像、本体状态与动作历史中学习稀疏注意力检索 | 分钟级长时程历史读取 |
+| [MemoryWAM: Memory-Augmented World Action Model for Long-Horizon Robot Manipulation](https://arxiv.org/abs/2606.20562) | 保留短期细节并递归压缩长期上下文 | 双时间尺度持久记忆 |
+| [HELM: Harness-Enhanced Long-horizon Memory for VLA Manipulation](https://arxiv.org/abs/2604.18791) | CLIP 索引关键帧、状态验证与失败回滚 | 策略外执行 harness 记忆 |
+| [PrediMem: Predictive Memory for Robotic Manipulation](https://arxiv.org/abs/2605.10921) | 近期/关键帧双缓冲 memory bank 与 predictive coding | 与 RoboMemArena 一同提出 |
 
 ### 3.3 事件驱动与关键帧记忆
 
@@ -77,6 +82,7 @@
 | [DiM-WAM: World-Action Modeling with Diverse Historical Event Memory](https://arxiv.org/abs/2606.27677) | 不同历史事件分库存储 | 库内相似度合并与任务进度监督 |
 | [Chameleon: Control-Indexed Prospective Memory for Visuomotor Manipulation](https://arxiv.org/abs/2603.24576) | 写入 geometry-grounded embodied event | 可微记忆栈形成面向控制的 prospective state |
 | [CycleManip: Enabling Cyclic Task Manipulation via Effective Historical Perception](https://arxiv.org/abs/2512.01022) | cost-aware 历史采样 | 面向重复动作和正确终止时间 |
+| [Bi-HIL: Bilateral Control-Based Multimodal Hierarchical Imitation Learning](https://arxiv.org/abs/2603.13315) | 以子任务进度率识别并写入关键帧 | 面向接触丰富操作的层次化记忆 |
 
 ### 3.4 递归隐状态、状态空间模型与完整历史
 
@@ -93,6 +99,7 @@
 | [Recurrent Action Transformer with Memory](https://arxiv.org/abs/2306.09459) | 专用 memory embeddings | 在 context segment 之间递归传递 |
 | [AnoleVLA: Lightweight VLA with Deep State Space Models for Mobile Manipulation](https://arxiv.org/abs/2603.15046) | deep SSM hidden state | 线性复杂度的长上下文建模 |
 | [SeedPolicy: Horizon Scaling via Self-Evolving Diffusion Policy](https://arxiv.org/abs/2603.05117) | 固定大小 self-evolving latent state | gated attention 持续更新 |
+| [MEMBOT: Memory-Based Robot in Intermittent POMDP](https://arxiv.org/abs/2509.11225) | SSM/LSTM belief encoder 聚合观测与动作序列 | 面向间歇观测缺失的重建预训练与 BC |
 
 ### 3.5 对象中心、空间与场景记忆
 
@@ -109,6 +116,8 @@
 | [EchoVLA: Synergistic Declarative Memory for VLA-Driven Mobile Manipulation](https://arxiv.org/abs/2511.18112) | scene memory 与 episodic memory | 移动操作中的粗到细检索融合 |
 | [ChronoFlow-Policy: Unifying Past-Current-Future Interaction Flow](https://arxiv.org/abs/2606.31493) | 对象与夹爪的稀疏 3D keypoints | 统一表示过去、当前与未来交互动态 |
 | [VQ-Memory for Robust Long-Horizon Manipulation](https://arxiv.org/abs/2603.09513) | 离散化关节状态 token | 以 VQ-VAE 表示任务阶段与本体感觉历史 |
+| [mindmap: Spatial Memory in Deep Feature Maps for 3D Action Policies](https://arxiv.org/abs/2509.20297) | 语义 3D 重建与深层特征图 | 记忆视野外对象并生成 3D 动作轨迹 |
+| [Mem-World: Memory-Augmented Action-Conditioned World Models](https://arxiv.org/abs/2606.18960) | 4D wrist-view surfel memory | 持久世界 rollout 与策略评估/改进 |
 
 ### 3.6 语言、动作与多模态记忆
 
@@ -136,6 +145,11 @@
 | [LoHo-Manip: Long-Horizon Manipulation via Trace-Conditioned VLA Planning](https://arxiv.org/abs/2604.21924) | 高层任务进度 | VLM 输出 done/remaining 语言记忆与 2D visual trace |
 | [Vesta: A Generalist Embodied Reasoning Model](https://arxiv.org/abs/2606.20905) | 高层规划与执行状态 | 历史帧与运行中的文本子任务 cache |
 | [AdaManip: Adaptive Articulated Object Manipulation Environments and Policy Learning](https://arxiv.org/abs/2502.11124) | 试探性交互历史 | 根据过往试探结果适应不可观测内部机构 |
+| [Retrieval-Augmented Embodied Agents](https://arxiv.org/abs/2404.11699) | 跨示范策略经验 | 外部 policy memory bank、多模态检索与策略生成 |
+| [Long-Term Memory for VLA-based Agents in Open-World Task Execution](https://arxiv.org/abs/2604.15671) | 跨执行成功轨迹 | 将成功经验固化为可检索资产并用于后续规划 |
+| [Harness VLA: Steering Frozen VLAs via Memory-Guided Agents](https://arxiv.org/abs/2607.08448) | 跨执行规则与失败经验 | 以 execution traces、成功规则和 failure models 约束冻结 VLA |
+| [Episodic Memory Model for Learning Robotic Manipulation Tasks](https://arxiv.org/abs/2104.10218) | 单次示范经验 | 形成可分解、可重放的状态转移与动作序列 |
+| [Deep Episodic Memory: Encoding, Recalling, and Predicting Episodic Experiences](https://arxiv.org/abs/1801.04134) | 视觉—动作 episode | 无监督编码、相似经验检索、重建与未来预测 |
 
 ## 5. 训练与优化范式
 
@@ -167,15 +181,68 @@
 
 记忆方法应在真正需要历史的部分可观测任务上评估，而非仅延长近似马尔可夫任务的操作时间。常见能力包括对象位置、任务进度、短暂证据、隐含规则、程序和周期计数。
 
-| 基准/论文 | 主要评测范围 |
-|---|---|
-| [RoboMME: Benchmarking and Understanding Memory for Robotic Generalist Policies](https://arxiv.org/abs/2603.04639) | temporal、spatial、object 与 procedural memory；16 个任务、14 种 memory-VLA 变体 |
-| [RMBench: Memory-Dependent Robotic Manipulation Benchmark](https://arxiv.org/abs/2603.01229) | 非马尔可操作、历史依赖、对象位置与任务进度 |
-| [Memory, Benchmark & Robots: MIKASA](https://arxiv.org/abs/2502.10550) | MIKASA-Base 与包含 32 个桌面操作任务的 MIKASA-Robo |
-| [MIKASA-Robo](https://arxiv.org/abs/2606.12497) | 部分可观测任务与 recurrent memory 泛化 |
-| [RoboTwin-MeM](https://arxiv.org/abs/2606.20092) | 交互中短暂出现、随后消失的视觉证据 |
-| [RuleSafe](https://arxiv.org/abs/2603.09513) | 密码、逻辑锁与规则驱动的多阶段非马尔可任务 |
-| [MemoryRTBench / MemoAct](https://arxiv.org/abs/2603.18494) | working memory、long-term memory 与压缩策略 |
+### 6.1 机器人操作专用记忆基准
+
+| 基准/论文 | 规模与记忆类型 | 环境 | 评测特点 |
+|---|---|---|---|
+| [RoboMME](https://arxiv.org/abs/2603.04639) | 16 个任务；temporal、spatial、object、procedural | 仿真；1,600 条示范、约 77 万帧 | 在统一 π0.5 backbone 上比较 14 种表示—融合变体，并提供 no-memory、symbolic oracle 与 memory-budget 对照 |
+| [RMBench](https://arxiv.org/abs/2603.01229) | 9 个任务；5 个 `M(1)` 与 4 个 `M(n)` | 仿真 benchmark，另有真机实验 | 区分固定少量历史与重复探索/试错记忆；主要指标为完整任务成功率 |
+| [MIKASA / MIKASA-Robo](https://arxiv.org/abs/2502.10550) | 32 个桌面任务、12 个任务组；object、spatial、sequential、capacity | ManiSkill 仿真 | 提供显式 oracle information、可参数化难度及专家轨迹，覆盖 online/offline RL 与 VLA |
+| [MemoryBench / SAM2Act+](https://arxiv.org/abs/2501.18564) | 3 个任务；空间记忆与动作回忆 | RLBench/CoppeliaSim 仿真 | Reopen Drawer、Put Block Back、Rearrange Block；任务直观但范围较窄 |
+| [LIBERO-Mem](https://arxiv.org/abs/2511.11478) | 10 个非马尔可任务；object、order/sequence、counting | LIBERO 仿真 | 对象级部分可观测，关键证据与后续决策可跨数百帧 |
+| [MemoryRTBench / MemoAct](https://arxiv.org/abs/2603.18494) | 4 个主要仿真任务，另有 2 个真机任务；状态跟踪与长期保持 | RoboTwin 2.0 与真机 | 分别诊断无损短期记忆和压缩长期记忆 |
+| [RoboTwin-MeM / EventVLA](https://arxiv.org/abs/2606.20092) | 17 个仿真任务与 4 个真实双臂任务 | RoboTwin 与真机 | 关注交互中短暂出现、随后消失的视觉证据 |
+| [RuleSafe / VQ-Memory](https://arxiv.org/abs/2603.09513) | key、password 与 logic lock | articulated-object 仿真 | 用规则驱动的多阶段任务测试任务阶段、本体感觉与逻辑记忆 |
+| [RoboMemArena](https://arxiv.org/abs/2605.10921) | 26 个任务，平均轨迹超过 1,000 environment steps | 仿真与 5 个配对真机任务 | 68.9% 子任务被标注为 memory-dependent；提供子任务指令和原生关键帧标注，并报告 TSR/CSR |
+| [ReMemBench / PRISM](https://arxiv.org/abs/2606.16178) | 8 个家庭操作任务；spatial、prospective、associative、object-set | 仿真与真机适配 | 将短期记忆扩展到约 2 分钟，并研究 history length、注意力和计算成本 |
+
+### 6.2 具身导航、个性化与持久世界状态
+
+这类基准直接评估记忆和行动的结合，但输出通常是导航动作、高层计划或问答，而非机械臂低层控制，因此不与操作基准等权比较。
+
+| 基准 | 主要范围 | 行动与输出边界 |
+|---|---|---|
+| [FindingDory](https://arxiv.org/abs/2506.15635) | Habitat 中 60 类可扩展长程任务，历史约 400–3,500 帧 | 评测阶段执行离散导航动作；物体操作由历史采集阶段的 oracle 完成 |
+| [MEMENTO](https://arxiv.org/abs/2505.16348) | 个性化 object rearrangement；对象语义、用户习惯与联合记忆 | 两阶段 acquisition/utilization，以含糊指令测试 episodic/personalized memory |
+| [LMEE-Bench](https://arxiv.org/abs/2601.10744) | HM3D 中 1,982 个长期记忆导航与问答任务 | 输出导航动作、frontier 或答案，不含机械臂控制 |
+| [MemoryEQA / MT-HM3D](https://arxiv.org/abs/2505.13948) | 1,587 个跨目标、跨区域 active EQA 任务 | agent 主动导航收集证据后回答问题 |
+| [MultiON](https://papers.nips.cc/paper/2020/hash/6e01383fd96a17ae51cc3e15447e7533-Abstract.html) | 按指定顺序寻找多个目标 | 经典空间/语义地图记忆与闭环导航基准 |
+| [WorldLines](https://arxiv.org/abs/2606.18847) | 跨日 household traces、状态覆盖与用户历史 | 评估 Memory QA 和 embodied task planning，不执行低层闭环动作 |
+
+### 6.3 通用 POMDP 与记忆评测协议
+
+| 基准/协议 | 用途 | 与机器人操作的距离 |
+|---|---|---|
+| [Memory Maze](https://arxiv.org/abs/2210.13383) | 随机 3D maze、online RL、offline dataset 与 memory probing | 有闭环动作，专门隔离长期定位记忆，但不是操作任务 |
+| [POPGym](https://arxiv.org/abs/2303.01859) | 15 个 POMDP 与多种 recurrent/attention baseline | 通用抽象控制，可用于比较记忆架构 |
+| [Memory Gym](https://arxiv.org/abs/2309.17207) | 2D POMDP、endless variants、长度泛化与噪声鲁棒性 | 诊断性强，但非具身机器人环境 |
+| [POBAX](https://arxiv.org/abs/2508.00046) | 筛选 memory-improvable 环境并比较 observation-only/state gap | 适合作为部分可观测评测方法学参考 |
+| [MEMBOT Intermittent-POMDP Protocol](https://arxiv.org/abs/2509.11225) | 向 MetaWorld 与 RoboMimic 的 10 个任务注入 observation dropout | 是基于已有环境的鲁棒性协议，不是独立 benchmark |
+| [RoboMME-Interference](https://robotmemorybench.com/) | 在相关 session 前加入 0/1/3/7 个无关 session | 显式测试跨 session 干扰、历史距离和记忆污染 |
+
+### 6.4 非马尔可性判据与统一报告建议
+
+仅增加轨迹长度或输入帧数不能证明任务需要记忆。较严格的 benchmark 应至少满足以下判据：
+
+1. **State-aliasing pair**：存在当前观测近似相同、但因历史不同而要求不同最优动作的状态对。
+2. **History intervention**：固定当前状态，仅删除、替换或打乱关键历史时，正确动作或目标随之改变。
+3. **Matched controls**：同时报告 no-history、matched-compute recent window、random/shuffled/wrong memory 与 full-history 对照。
+4. **Oracle decomposition**：分别提供 privileged-state oracle、最小充分记忆 oracle，以及必要时的 oracle low-level controller，以区分检索、推理与控制失败。
+5. **Scaling curves**：按证据延迟、需保存事实数量、遮挡持续时间、memory budget 与 distractor 数量报告性能曲线，而非只报告平均轨迹长度。
+
+建议统一报告完整任务成功率、子任务完成率/CSR、记忆关键决策点准确率、至少 3 个随机种子与置信区间，并披露训练/测试的场景、物体、布局、语言模板和生成器 seed 隔离方式。系统成本应包含 memory token/frame 数、最大与平均 context、显存、延迟和控制频率。可进一步报告：
+
+\[
+\text{Memory Gap}=S_{\text{oracle-memory}}-S_{\text{no-memory}},
+\]
+
+\[
+\text{Normalized Memory Recovery}=
+\frac{S_{\text{method}}-S_{\text{no-memory}}}
+{S_{\text{oracle-memory}}-S_{\text{no-memory}}}.
+\]
+
+常见评测陷阱包括当前画面残留答案、机械臂姿态或固定动作时长泄露阶段/计数信息、语言模板和 GT subtask/keyframe 标注泄露任务进度、不同上下文长度导致计算量不匹配，以及完整任务成功率将记忆错误与感知、规划和低层控制错误混合。
 
 ## 7. 方法比较与研究趋势
 
