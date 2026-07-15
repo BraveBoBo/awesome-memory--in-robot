@@ -1,29 +1,40 @@
-# 机器人长期记忆与 Memory VLA 论文清单
+# 机器人长期记忆与 Memory VLA 文献综述
 
 > 更新日期：2026-07-15  
-> 主题：Vision-Language-Action、长期记忆、部分可观测操作、TBPTT、全历史状态模型、事件/关键帧记忆  
-> 研究背景：用于对照 HAMLET、MemoryVLA、相关方法以及当前 ELEPHANT 双层记忆方案。
+> 主题：Vision-Language-Action、长期记忆、部分可观测操作、TBPTT、全历史状态模型、事件/关键帧记忆
 
-## 1. 优先阅读
+## 摘要
 
-| 优先级 | 论文 | 年份 | 核心记忆机制 | 与 ELEPHANT 的关系 |
+长时程机器人操作往往不满足马尔可假设：当前观测无法完整表示对象状态、任务进度、历史交互及已离开视野的证据。因此，VLA 策略需要在有限计算与显存预算下保留和读取有效历史。
+
+本文按记忆表示与信息流程对相关工作分类，覆盖显式记忆库、检索与压缩、递归状态、完整轨迹建模、事件与关键帧记忆、对象中心表示、多模态记忆以及系统级终身记忆，并汇总对应评测基准。
+
+## 1. 研究范围与分类框架
+
+机器人记忆方法可从四个维度理解：“写入什么”决定记忆模态，“何时写入”决定时间粒度，“如何保留”决定容量与遗忘规则，“如何读取”决定历史信息与当前策略的融合方式。
+
+依据核心机制，现有研究可分为显式记忆与检索、递归隐状态、全历史序列建模、稀疏事件记忆、结构化对象/空间记忆、语言与动作记忆，以及跨 episode 的经验与终身记忆。后文按这一谱系组织文献。
+
+## 2. 代表性工作导读
+
+| 方法类别 | 论文 | 年份 | 核心记忆机制 | 研究定位 |
 |---|---|---:|---|---|
-| S | [NativeMEM: Native Memory Compression for Long-Horizon Robotic Manipulation](https://arxiv.org/abs/2607.06678) | 2026 | 使用 VLA 自身视觉编码器，把每个历史“帧—视角”压缩为一个原生 token | 对照“每帧单 token 平铺”与 Fenwick 层次压缩 |
-| S | [LaMem-VLA: Dual Latent Memory in Vision-Language-Action Models](https://arxiv.org/abs/2607.07608) | 2026 | 短期视觉 vault、长期语义/动作 vault；检索、压缩后直接织入 VLA latent sequence | 与双层记忆定位高度接近，需要重点分析差异 |
-| S | [Chronos: A Physics-Informed Full-History Framework for Non-Markovian Long-Horizon Manipulation](https://arxiv.org/abs/2606.30318) | 2026 | 每个物理时刻一个 state token，选择性 SSM 编码完整轨迹 | 提供 full-BPTT、非截断式全历史基线 |
-| S | [EventVLA: Event-Driven Visual Evidence Memory for Long-Horizon VLA Policies](https://arxiv.org/abs/2606.20092) | 2026 | 初始/近期视觉 anchor + 预测未来效用的动态事件关键帧 | 可解决均值合并抹除瞬时证据的问题 |
-| S | [KEMO: Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation with VLA Policies](https://arxiv.org/abs/2606.23589) | 2026 | 运动学事件检测、视觉差异过滤、关键帧交叉注意力读取 | 适合作为低成本 event-anchor bank |
-| S | [MemoAct: Atkinson–Shiffrin-Inspired Memory-Augmented Visuomotor Policy](https://arxiv.org/abs/2603.18494) | 2026 | 无损短期 bank + 压缩长期 bank + 相似度合并 | 与 ELEPHANT 的双层记忆最接近 |
-| S | [μVLA: On Recurrent Memory for Partially Observable Manipulation](https://arxiv.org/abs/2606.12497) | 2026 | 跨时刻传递少量 memory tokens | 最清晰的 temporal-TBPTT 对照实验 |
-| S | [ReMem-VLA: Empowering VLA with Memory via Dual-Level Recurrent Queries](https://arxiv.org/abs/2603.12942) | 2026 | frame-level 与 chunk-level recurrent queries，固定 EMA 传播 | 双时间尺度记忆与 gradient-free recurrence 基线 |
-| A | [MemoryVLA: Perceptual-Cognitive Memory in VLA Models](https://arxiv.org/abs/2508.19236) | 2025 | working memory、perceptual-cognitive bank、检索与冗余合并 | 经典显式 memory-bank 基线 |
-| A | [HAMLET: Switch your VLA Model into a History-Aware Policy](https://arxiv.org/abs/2510.00695) | 2025 | moment tokens、时间对比初始化、轻量历史聚合模块 | 固定短窗口历史压缩的重要基线 |
-| A | [Chameleon: Control-Indexed Prospective Memory for Visuomotor Manipulation](https://arxiv.org/abs/2603.24576) | 2026 | 写入 geometry-grounded embodied event memory，通过可微记忆栈形成面向控制的 prospective state | 强调可分离、可寻址、面向未来动作的记忆质量 |
-| A | [MEM: Multi-Scale Embodied Memory for Vision Language Action Models](https://arxiv.org/abs/2603.03596) | 2026 | 短期视频记忆 + 长期语言事件记忆 | 代表视觉/语义混合的分钟级记忆路线 |
-| A | [VPWEM: Non-Markovian Visuomotor Policy with Working and Episodic Memory](https://arxiv.org/abs/2603.04910) | 2026 | 近期 working window + 递归 episodic compressor | 双层无损/有损记忆对照 |
-| A | [TempoFit: Plug-and-Play Layer-Wise Temporal KV Memory](https://arxiv.org/abs/2603.07647) | 2026 | 缓存中间层 prefix K/V，相似度检索并施加时间衰减 | training-free 零训练记忆基线 |
+| 历史压缩 | [NativeMEM: Native Memory Compression for Long-Horizon Robotic Manipulation](https://arxiv.org/abs/2607.06678) | 2026 | 使用 VLA 自身视觉编码器，把每个历史“帧—视角”压缩为一个原生 token | 原生 token 形式的紧凑视觉历史 |
+| 多模态记忆 | [LaMem-VLA: Dual Latent Memory in Vision-Language-Action Models](https://arxiv.org/abs/2607.07608) | 2026 | 短期视觉 vault、长期语义/动作 vault；检索、压缩后直接织入 VLA latent sequence | 双层潜在记忆与多模态压缩 |
+| 全历史建模 | [Chronos: A Physics-Informed Full-History Framework for Non-Markovian Long-Horizon Manipulation](https://arxiv.org/abs/2606.30318) | 2026 | 每个物理时刻一个 state token，选择性 SSM 编码完整轨迹 | 非截断式全历史训练 |
+| 事件记忆 | [EventVLA: Event-Driven Visual Evidence Memory for Long-Horizon VLA Policies](https://arxiv.org/abs/2606.20092) | 2026 | 初始/近期视觉 anchor + 预测未来效用的动态事件关键帧 | 学习式事件保留与瞬时证据建模 |
+| 关键帧记忆 | [KEMO: Event-Driven Keyframe Memory for Long-Horizon Robot Manipulation with VLA Policies](https://arxiv.org/abs/2606.23589) | 2026 | 运动学事件检测、视觉差异过滤、关键帧交叉注意力读取 | 基于事件的稀疏视觉历史 |
+| 工作/长期记忆 | [MemoAct: Atkinson–Shiffrin-Inspired Memory-Augmented Visuomotor Policy](https://arxiv.org/abs/2603.18494) | 2026 | 无损短期 bank + 压缩长期 bank + 相似度合并 | 认知模型启发的双层记忆 |
+| 递归记忆 | [μVLA: On Recurrent Memory for Partially Observable Manipulation](https://arxiv.org/abs/2606.12497) | 2026 | 跨时刻传递少量 memory tokens | temporal TBPTT 与 recurrent memory |
+| 递归记忆 | [ReMem-VLA: Empowering VLA with Memory via Dual-Level Recurrent Queries](https://arxiv.org/abs/2603.12942) | 2026 | frame-level 与 chunk-level recurrent queries，固定 EMA 传播 | 双时间尺度与 gradient-free recurrence |
+| 显式记忆库 | [MemoryVLA: Perceptual-Cognitive Memory in VLA Models](https://arxiv.org/abs/2508.19236) | 2025 | working memory、perceptual-cognitive bank、检索与冗余合并 | 感知—认知显式记忆库 |
+| 固定历史窗口 | [HAMLET: Switch your VLA Model into a History-Aware Policy](https://arxiv.org/abs/2510.00695) | 2025 | moment tokens、时间对比初始化、轻量历史聚合模块 | 短窗口历史聚合 |
+| 前瞻记忆 | [Chameleon: Control-Indexed Prospective Memory for Visuomotor Manipulation](https://arxiv.org/abs/2603.24576) | 2026 | 写入 geometry-grounded embodied event memory，通过可微记忆栈形成面向控制的 prospective state | 可分离、可寻址的面向控制记忆 |
+| 视觉/语言记忆 | [MEM: Multi-Scale Embodied Memory for Vision Language Action Models](https://arxiv.org/abs/2603.03596) | 2026 | 短期视频记忆 + 长期语言事件记忆 | 视觉与语义混合的分钟级记忆 |
+| 工作/情景记忆 | [VPWEM: Non-Markovian Visuomotor Policy with Working and Episodic Memory](https://arxiv.org/abs/2603.04910) | 2026 | 近期 working window + 递归 episodic compressor | 无损工作记忆与有损情景记忆 |
+| KV 记忆 | [TempoFit: Plug-and-Play Layer-Wise Temporal KV Memory](https://arxiv.org/abs/2603.07647) | 2026 | 缓存中间层 prefix K/V，相似度检索并施加时间衰减 | training-free 时间 KV 记忆 |
 
-## 2. 显式记忆、检索与压缩方法
+## 3. 显式记忆、检索与压缩
 
 | 论文 | 年份 | 主要机制 | 历史范围/特点 |
 |---|---:|---|---|
@@ -45,7 +56,7 @@
 | [ContextVLA: Visual Context Compression for Efficient Multi-Frame VLA](https://arxiv.org/abs/2510.04246) | 2025 | 将历史观测压成单个 context token | 紧凑多帧基线 |
 | [CronusVLA: A Vision-Language-Action Model with Multi-Frame Context](https://arxiv.org/abs/2506.19816) | 2025 | 单帧预训练、多帧后训练、历史特征缓存 | 短期多帧上下文，不是真正无限历史 |
 
-## 3. TBPTT、递归状态与完整轨迹训练
+## 4. 递归状态、TBPTT 与完整轨迹训练
 
 | 论文 | 是否使用 TBPTT | 截断的维度 | 备注 |
 |---|---|---|---|
@@ -69,7 +80,9 @@
 - **Full-trajectory backpropagation**：损失可沿 temporal module 回传到完整轨迹早期，不属于 TBPTT。
 - **Stateless full scan**：每个优化步骤重新扫描完整轨迹，通常不跨 minibatch 保存隐藏状态。
 
-## 4. 记忆评测与数据集
+## 5. Memory Policy、系统级记忆与评测资源
+
+### 5.1 记忆评测与数据集
 
 | 论文/基准 | 年份 | 主要评测维度 |
 |---|---:|---|
@@ -80,30 +93,43 @@
 | [MemoryRTBench / MemoAct](https://arxiv.org/abs/2603.18494) | 2026 | working memory、long-term memory 与双层压缩策略 |
 | [MIKASA-Robo](https://arxiv.org/abs/2606.12497) | 2026 | 部分可观测任务及 recurrent memory 泛化 |
 
-## 5. 对 ELEPHANT 最关键的比较轴
+### 5.2 Memory VLA / Memory Policy
 
-1. **历史覆盖方式**：近期窗口、每帧单 token、事件关键帧、递归状态、Fenwick 多尺度槽位。
-2. **压缩规则**：均值/计数精确合并、语义相似度合并、学习式 attention compression、VQ 离散化。
-3. **关键事件保真度**：普通合并与独立 event-anchor bank 的差异。
-4. **时间尺度编码**：age、coverage、slot level、半衰期或 frame-gap bias。
-5. **训练梯度路径**：完全 detach、TBPTT、burn-in + TBPTT、轻量 temporal stack full-BPTT。
-6. **记忆内容**：视觉、语言、proprioception、action history、对象轨迹及混合模态。
-7. **写入策略**：每帧写入、周期写入、运动学事件、视觉差异、学习式未来效用预测。
-8. **读取策略**：全槽注意力、相似度检索、跨注意力、门控残差、native-token weaving。
+| 论文 | 年份 | 主要机制 | 比较价值 |
+|---|---:|---|---|
+| [OptimusVLA: Global Prior Meets Local Consistency](https://arxiv.org/abs/2602.20200) | 2026 | Global Prior Memory 从相似轨迹检索动作先验；Local Consistency Memory 编码已执行动作和任务进度 | 同时覆盖跨示范检索与 episode 内动作记忆 |
+| [SOMA: Spatial Memory for Out-of-Vision Manipulation in VLA](https://arxiv.org/abs/2605.22283) | 2026 | 多视角扫描构建持久空间语义记忆，动态修正并按指令检索 | 检验长期记忆是否能支持视野外对象定位，而非仅记住可见历史 |
+| [MAP-VLA: Memory-Augmented Prompting for VLA in Robotic Manipulation](https://arxiv.org/abs/2511.09516) | 2025 | 从示范构建任务阶段 memory library；以可学习 soft prompts 表示并按轨迹相似度检索 | 区分跨示范软提示记忆与 episode 内在线记忆 |
+| [DiM-WAM: World-Action Modeling with Diverse Historical Event Memory](https://arxiv.org/abs/2606.27677) | 2026 | 多个历史事件 memory banks 独立进行相似度合并；加入 bank identity、时间编码与任务进度监督 | 适合研究多 bank 身份、时间尺度编码和 progress supervision |
+| [SeedPolicy: Horizon Scaling via Self-Evolving Diffusion Policy](https://arxiv.org/abs/2603.05117) | 2026 | SEGA 通过 gated attention 维护固定大小、随时间演化的 latent state | 可作为学习式 O(1) recurrent compression 基线 |
+| [HiF-VLA: Hindsight, Insight and Foresight through Motion Representation](https://arxiv.org/abs/2512.09928) | 2025 | 用 motion 表示压缩历史变化，并联合 hindsight 与 future-motion reasoning | 以运动表征连接历史理解与未来预测 |
+| [CycleManip: Enabling Cyclic Task Manipulation via Effective Historical Perception](https://arxiv.org/abs/2512.01022) | 2025 | cost-aware 历史采样与多任务历史理解，面向重复动作和正确终止时间 | 适合验证计数、周期和 elapsed-time memory |
+| [CDP: Robust Autoregressive Visuomotor Policy Learning via Causal Diffusion](https://arxiv.org/abs/2506.14769) | 2025 | 以历史动作序列条件化 diffusion policy，并缓存跨时刻 attention K/V | action-history memory 与视觉记忆的互补基线 |
+| [TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness](https://arxiv.org/abs/2412.10345) | 2024 | 将状态—动作轨迹渲染成当前图像上的视觉 traces | 无需显式 latent bank 的历史压缩基线 |
+| [LoHo-Manip: Long-Horizon Manipulation via Trace-Conditioned VLA Planning](https://arxiv.org/abs/2604.21924) | 2026 | task-management VLM 输出 done/remaining 语言记忆和 2D visual trace，短时 VLA 负责局部执行 | 高层显式进度记忆与低层端到端 latent memory 的比较 |
 
-## 6. 建议的实验基线
+### 5.3 系统级与终身记忆
 
-- Memory-free VLA。
-- HAMLET 固定窗口 moment tokens。
-- NativeMEM 风格：每帧一个 token，不做层次合并。
-- MemoryVLA / MemoAct 风格：相似度检索与合并。
-- EventVLA / KEMO 风格：稀疏事件关键帧。
-- μVLA 风格：recurrent tokens + TBPTT。
-- Chronos / MTIL 风格：轻量 SSM 的完整历史编码。
-- ELEPHANT：短期 FIFO/Q-Former + Fenwick 长期 bank。
-- ELEPHANT + event anchors。
-- ELEPHANT + TBPTT，建议测试 `K ∈ {1, 4, 8, 16}`。
-- ELEPHANT + burn-in：先无梯度恢复历史状态，再对最后 `K` 步反传。
+| 论文 | 年份 | 主要机制 | 范围 |
+|---|---:|---|---|
+| [RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Lifelong Learning](https://arxiv.org/abs/2508.01415) | 2025 | 并行维护 spatial、temporal、episodic、semantic memory，并结合动态知识图谱与闭环规划 | 跨任务、终身与 agentic memory；超出单 episode policy memory，但适合讨论系统边界 |
+| [AdaManip: Adaptive Articulated Object Manipulation Environments and Policy Learning](https://arxiv.org/abs/2502.11124) | 2025 | 面向不可直接观测内部机构，通过历史试探结果自适应操作 | 不是专门的 memory architecture，但提供典型 trial-and-error 非马尔可夫任务 |
+
+### 5.4 相关综述
+
+| 论文 | 年份 | 内容 | 用途 |
+|---|---:|---|---|
+| [Memory, Benchmark & Robots: MIKASA](https://arxiv.org/abs/2502.10550) | 2025 | MIKASA-Base 与包含 32 个桌面操作任务的 MIKASA-Robo | 评估不同记忆类型、历史跨度与部分可观测操作 |
+| [Large VLM-based VLA Models for Robotic Manipulation: A Survey](https://arxiv.org/abs/2508.13073) | 2025 | 大型 VLM-based VLA 的架构、训练、world model、memory 与效率分类 | 用于完善 related-work taxonomy 和持续追踪相关方法 |
+| [A Survey on VLA Models for Embodied AI](https://arxiv.org/abs/2405.14093) | 2024–2026 | 持续更新的 VLA 方法、数据、基准与能力综述 | 用于查漏补缺，不作为 memory 方法本身 |
+
+## 6. 代表性方法谱系
+
+- **无记忆与固定窗口**：Memory-free VLA 用于测量记忆的净收益；HAMLET 代表固定窗口与 moment-token 聚合。
+- **密集历史压缩**：NativeMEM 代表逐帧紧凑 token；MemoryVLA 与 MemoAct 代表检索、冗余判定和长短期记忆合并。
+- **稀疏事件记忆**：EventVLA 与 KEMO 根据未来效用、运动学事件或视觉变化保留关键帧。
+- **递归记忆**：μVLA 使用 recurrent tokens 与 TBPTT；ReMem-VLA 以固定 EMA 实现不依赖跨步梯度的长期传播。
+- **完整历史编码**：Chronos、MTIL 与 DSSP 利用轻量 SSM 或 Mamba 扫描轨迹，强调线性复杂度与长时程信息传递。
 
 ## 7. 相关方法分类与机制对照
 
@@ -115,7 +141,7 @@
 |---|---:|---|---|
 | [Learning Long-Context Diffusion Policies via Past-Token Prediction](https://arxiv.org/abs/2505.09561) | 2025 | 除未来动作外同时预测过去动作 token；短上下文视觉预训练后，用缓存视觉特征训练长上下文 policy head | 证明长时依赖的收益可能主要来自 policy head，而不一定来自视觉骨干 |
 | [AURA-Mem: Action-Gated Memory for Robot Policies at Constant VRAM](https://arxiv.org/abs/2606.02775) | 2026 | 固定大小 fast-weight recurrent state；仅在 action-relevant surprise 时写入 | O(1) 状态显存与 learned write gate 基线 |
-| [Gated Memory Policy](https://arxiv.org/abs/2604.18933) | 2026 | 学习何时读取历史、读取什么；交叉注意力构造 latent memory，并对历史动作注入噪声 | 适合对照 ELEPHANT 的始终读取与可选门控读取 |
+| [Gated Memory Policy](https://arxiv.org/abs/2604.18933) | 2026 | 学习何时读取历史、读取什么；交叉注意力构造 latent memory，并对历史动作注入噪声 | 对比始终读取与自适应门控读取 |
 | [Action-Effect Memory Pretraining for Robot Manipulation](https://arxiv.org/abs/2606.12499) | 2026 | 以动作及其环境效果为记忆预训练信号 | 强调 interaction consequence，而非仅压缩观测 |
 | [ChronoFlow-Policy: Unifying Past-Current-Future Interaction Flow](https://arxiv.org/abs/2606.31493) | 2026 | 用对象与夹爪的稀疏 3D keypoints 联合表示过去、当前和未来交互动态 | 可作为事件抽取与交互动力学辅助监督 |
 
@@ -148,44 +174,3 @@
 | [RATE](https://arxiv.org/abs/2306.09459) | segment 级 recurrent memory-token 训练 | 是理解跨段 memory token 和截断上下文训练的重要基础 |
 | [MemoryVAM](https://arxiv.org/abs/2606.20679) | 显式 recap memory，不依赖无限递归计算图 | 核心是压缩历史和任务进度 cue |
 | [Notes-to-Self](https://arxiv.org/abs/2602.21013) | 显式文本状态，无需通过视觉历史进行长距离反传 | 将长期信用分配部分转化为语言状态监督 |
-
-## 8. Memory Policy、系统级记忆与评测资源
-
-### 8.1 Memory VLA / Memory Policy
-
-| 论文 | 年份 | 主要机制 | 与 ELEPHANT 的比较价值 |
-|---|---:|---|---|
-| [OptimusVLA: Global Prior Meets Local Consistency](https://arxiv.org/abs/2602.20200) | 2026 | Global Prior Memory 从相似轨迹检索动作先验；Local Consistency Memory 编码已执行动作和任务进度 | 同时覆盖跨示范检索与 episode 内动作记忆 |
-| [SOMA: Spatial Memory for Out-of-Vision Manipulation in VLA](https://arxiv.org/abs/2605.22283) | 2026 | 多视角扫描构建持久空间语义记忆，动态修正并按指令检索 | 检验长期记忆是否能支持视野外对象定位，而非仅记住可见历史 |
-| [MAP-VLA: Memory-Augmented Prompting for VLA in Robotic Manipulation](https://arxiv.org/abs/2511.09516) | 2025 | 从示范构建任务阶段 memory library；以可学习 soft prompts 表示并按轨迹相似度检索 | 跨示范软提示记忆，对比 episode 内在线 Fenwick memory |
-| [DiM-WAM: World-Action Modeling with Diverse Historical Event Memory](https://arxiv.org/abs/2606.27677) | 2026 | 多个历史事件 memory banks 独立进行相似度合并；加入 bank identity、时间编码与任务进度监督 | 与 Fenwick 多层 bank、时间尺度编码和 progress supervision 高度相关 |
-| [SeedPolicy: Horizon Scaling via Self-Evolving Diffusion Policy](https://arxiv.org/abs/2603.05117) | 2026 | SEGA 通过 gated attention 维护固定大小、随时间演化的 latent state | 可作为学习式 O(1) recurrent compression 基线 |
-| [HiF-VLA: Hindsight, Insight and Foresight through Motion Representation](https://arxiv.org/abs/2512.09928) | 2025 | 用 motion 表示压缩历史变化，并联合 hindsight 与 future-motion reasoning | 对比保存视觉均值与保存动态残差/运动表征 |
-| [CycleManip: Enabling Cyclic Task Manipulation via Effective Historical Perception](https://arxiv.org/abs/2512.01022) | 2025 | cost-aware 历史采样与多任务历史理解，面向重复动作和正确终止时间 | 适合验证计数、周期和 elapsed-time memory |
-| [CDP: Robust Autoregressive Visuomotor Policy Learning via Causal Diffusion](https://arxiv.org/abs/2506.14769) | 2025 | 以历史动作序列条件化 diffusion policy，并缓存跨时刻 attention K/V | action-history memory 与视觉记忆的互补基线 |
-| [TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness](https://arxiv.org/abs/2412.10345) | 2024 | 将状态—动作轨迹渲染成当前图像上的视觉 traces | 无需显式 latent bank 的历史压缩基线 |
-| [LoHo-Manip: Long-Horizon Manipulation via Trace-Conditioned VLA Planning](https://arxiv.org/abs/2604.21924) | 2026 | task-management VLM 输出 done/remaining 语言记忆和 2D visual trace，短时 VLA 负责局部执行 | 高层显式进度记忆与低层端到端 latent memory 的比较 |
-
-### 8.2 系统级与终身记忆
-
-| 论文 | 年份 | 主要机制 | 范围 |
-|---|---:|---|---|
-| [RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Lifelong Learning](https://arxiv.org/abs/2508.01415) | 2025 | 并行维护 spatial、temporal、episodic、semantic memory，并结合动态知识图谱与闭环规划 | 跨任务、终身与 agentic memory；超出单 episode policy memory，但适合讨论系统边界 |
-| [AdaManip: Adaptive Articulated Object Manipulation Environments and Policy Learning](https://arxiv.org/abs/2502.11124) | 2025 | 面向不可直接观测内部机构，通过历史试探结果自适应操作 | 不是专门的 memory architecture，但提供典型 trial-and-error 非马尔可夫任务 |
-
-### 8.3 基准与综述
-
-| 论文 | 年份 | 内容 | 用途 |
-|---|---:|---|---|
-| [Memory, Benchmark & Robots: MIKASA](https://arxiv.org/abs/2502.10550) | 2025 | MIKASA-Base 与包含 32 个桌面操作任务的 MIKASA-Robo | 评估不同记忆类型、历史跨度与部分可观测操作 |
-| [Large VLM-based VLA Models for Robotic Manipulation: A Survey](https://arxiv.org/abs/2508.13073) | 2025 | 大型 VLM-based VLA 的架构、训练、world model、memory 与效率分类 | 用于完善 related-work taxonomy 和持续追踪相关方法 |
-| [A Survey on VLA Models for Embodied AI](https://arxiv.org/abs/2405.14093) | 2024–2026 | 持续更新的 VLA 方法、数据、基准与能力综述 | 用于查漏补缺，不作为 memory 方法本身 |
-
-### 8.4 实验启示
-
-- 增加 **OptimusVLA-style action-history memory**，判断 proprioception/action history 是否比历史视觉更稳定。
-- 增加 **DiM-WAM-style bank identity + temporal scale embedding**，避免 Fenwick 各层只靠槽位顺序区分时间覆盖。
-- 增加 **HiF-VLA-style dynamic residual token**，将静态场景均值与运动/交互变化分开保存。
-- 增加 **SOMA-style out-of-view evaluation**，测试长期槽位是否真正保留已离开视野的目标位置。
-- 用 **CycleManip/MIKASA 的计数与周期任务**验证记忆读写，而不只使用长但近似马尔可夫的任务。
-- 将 **MAP-VLA、RoboMemory、LoHo-Manip**标注为跨示范或高层系统记忆，避免与 episode 内端到端 latent memory 混为一类。
