@@ -1,6 +1,6 @@
 # 机器人长期记忆与 Memory VLA 文献综述
 
-> 更新日期：2026-07-15  
+> 更新日期：2026-07-16
 > 范围：Vision-Language-Action、长时程操作、部分可观测决策与机器人记忆
 
 ## 摘要
@@ -148,6 +148,8 @@
 | [Retrieval-Augmented Embodied Agents](https://arxiv.org/abs/2404.11699) | 跨示范策略经验 | 外部 policy memory bank、多模态检索与策略生成 |
 | [Long-Term Memory for VLA-based Agents in Open-World Task Execution](https://arxiv.org/abs/2604.15671) | 跨执行成功轨迹 | 将成功经验固化为可检索资产并用于后续规划 |
 | [Harness VLA: Steering Frozen VLAs via Memory-Guided Agents](https://arxiv.org/abs/2607.08448) | 跨执行规则与失败经验 | 以 execution traces、成功规则和 failure models 约束冻结 VLA |
+| [PhysClaw-0: A Symbiotic Agentic System for Robot Autonomy via Language Corrections](https://arxiv.org/abs/2607.14047) | 跨轮次纠错经验 | 将自然语言纠错解析为结构化调整并写入 Corrective Memory，在相同条件下复用以减少重复人工干预 |
+| [Experience Memory Graph: One-Shot Error Correction for Agents](https://arxiv.org/abs/2607.13884) | 跨任务成功与失败轨迹 | 将轨迹构造成动作决策图，以图匹配提取成功工作流和纠错 edit path，并在 ALFWorld 等具身任务中单次检索执行 |
 | [Episodic Memory Model for Learning Robotic Manipulation Tasks](https://arxiv.org/abs/2104.10218) | 单次示范经验 | 形成可分解、可重放的状态转移与动作序列 |
 | [Deep Episodic Memory: Encoding, Recalling, and Predicting Episodic Experiences](https://arxiv.org/abs/1801.04134) | 视觉—动作 episode | 无监督编码、相似经验检索、重建与未来预测 |
 
