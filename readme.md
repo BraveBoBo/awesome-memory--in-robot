@@ -275,5 +275,6 @@
 
 | 论文 | 覆盖范围 | 用途 |
 |---|---|---|
+| [大模型记忆系统分析框架](docs/llm-memory-system-framework.md) | 参数化/显式记忆、系统分层、原子操作、生命周期、分类与机器人映射 | 作为后续论文方法卡片和统一分析维度 |
 | [Large VLM-based VLA Models for Robotic Manipulation: A Survey](https://arxiv.org/abs/2508.13073) | 大型 VLM-based VLA 的架构、训练、world model、memory 与效率 | 完善 VLA related-work taxonomy |
 | [A Survey on VLA Models for Embodied AI](https://arxiv.org/abs/2405.14093) | VLA 方法、数据、基准与能力 | 持续追踪领域进展与查漏补缺 |
