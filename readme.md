@@ -1,6 +1,6 @@
 # 机器人长期记忆与 Memory VLA 文献综述
 
-> 更新日期：2026-07-16
+> 更新日期：2026-07-17
 > 范围：Vision-Language-Action、长时程操作、部分可观测决策与机器人记忆
 
 ## 摘要
@@ -118,6 +118,7 @@
 | [VQ-Memory for Robust Long-Horizon Manipulation](https://arxiv.org/abs/2603.09513) | 离散化关节状态 token | 以 VQ-VAE 表示任务阶段与本体感觉历史 |
 | [mindmap: Spatial Memory in Deep Feature Maps for 3D Action Policies](https://arxiv.org/abs/2509.20297) | 语义 3D 重建与深层特征图 | 记忆视野外对象并生成 3D 动作轨迹 |
 | [Mem-World: Memory-Augmented Action-Conditioned World Models](https://arxiv.org/abs/2606.18960) | 4D wrist-view surfel memory | 持久世界 rollout 与策略评估/改进 |
+| [Stigmergic Graph Memory: An Environment-Aware Approach for Many-to-Many Multi-Agent Pickup and Delivery](https://arxiv.org/abs/2607.15182) | 仓库节点与有向边上的执行信号 | 以有界衰减图记忆联合引导多机器人端点选择与路径偏好 |
 
 ### 3.6 语言、动作与多模态记忆
 
@@ -130,6 +131,7 @@
 | [MEM: Multi-Scale Embodied Memory for Vision Language Action Models](https://arxiv.org/abs/2603.03596) | 视频与语言 | 短期视频记忆与长期语言事件记忆 |
 | [HiF-VLA: Hindsight, Insight and Foresight through Motion Representation](https://arxiv.org/abs/2512.09928) | 运动 | 用 motion 压缩历史变化，联合 hindsight 与 future-motion reasoning |
 | [CDP: Robust Autoregressive Visuomotor Policy Learning via Causal Diffusion](https://arxiv.org/abs/2506.14769) | 动作 | 以历史动作序列条件化 diffusion policy，并缓存跨时刻 attention K/V |
+| [LIFT: Never Too Late for Force — Accelerating VLA Post-Training with Reactive Force Injection](https://arxiv.org/abs/2607.14236) | 力觉 | 以近期 6D 末端力构成 causal force memory，通过交叉注意力驱动接触阶段的反应式动作更新 |
 
 ## 4. 跨 Episode 经验与系统级记忆
 
@@ -150,6 +152,7 @@
 | [Harness VLA: Steering Frozen VLAs via Memory-Guided Agents](https://arxiv.org/abs/2607.08448) | 跨执行规则与失败经验 | 以 execution traces、成功规则和 failure models 约束冻结 VLA |
 | [PhysClaw-0: A Symbiotic Agentic System for Robot Autonomy via Language Corrections](https://arxiv.org/abs/2607.14047) | 跨轮次纠错经验 | 将自然语言纠错解析为结构化调整并写入 Corrective Memory，在相同条件下复用以减少重复人工干预 |
 | [Experience Memory Graph: One-Shot Error Correction for Agents](https://arxiv.org/abs/2607.13884) | 跨任务成功与失败轨迹 | 将轨迹构造成动作决策图，以图匹配提取成功工作流和纠错 edit path，并在 ALFWorld 等具身任务中单次检索执行 |
+| [MEMORA: Embodied Action Memory from Egocentric Videos for Reasoning and Planning](https://arxiv.org/abs/2607.14252) | 第一视角跨任务经验 | 以形成—巩固—检索生命周期维护环境、实体、活动和推断知识四类记忆，用于记忆驱动的机器人规划 |
 | [Episodic Memory Model for Learning Robotic Manipulation Tasks](https://arxiv.org/abs/2104.10218) | 单次示范经验 | 形成可分解、可重放的状态转移与动作序列 |
 | [Deep Episodic Memory: Encoding, Recalling, and Predicting Episodic Experiences](https://arxiv.org/abs/1801.04134) | 视觉—动作 episode | 无监督编码、相似经验检索、重建与未来预测 |
 
