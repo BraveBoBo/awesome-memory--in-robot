@@ -118,6 +118,7 @@
 | [Analytic Concept-Centric Memory for Agentic Embodied Manipulation](https://arxiv.org/abs/2606.29774) | 对象部件、位姿、affordance、状态转移与技能 | 结构化、可解释的概念记忆 |
 | [EchoVLA: Synergistic Declarative Memory for VLA-Driven Mobile Manipulation](https://arxiv.org/abs/2511.18112) | scene memory 与 episodic memory | 移动操作中的粗到细检索融合 |
 | [RoboStream: Weaving Spatio-Temporal Reasoning with Memory in Vision-Language Models for Robotics](https://arxiv.org/abs/2603.12939) | 绑定视觉证据与 3D 几何的 STF-Tokens、因果时空图 | training-free 持久对象 grounding 与动作触发状态转移追踪，支持遮挡下对象恒常性和长程 VLM 规划 |
+| [OASIS-Map: Object-Level Change Detection in Multi-Session Mapping using Semantic Correspondence Matching](https://arxiv.org/abs/2607.14899) | 跨 session 的时空一致对象地图 | 通过稠密 patch 级语义对应检测场景变化，并在遮挡、局部视图和分割误差下增量关联重访对象 |
 | [ChronoFlow-Policy: Unifying Past-Current-Future Interaction Flow](https://arxiv.org/abs/2606.31493) | 对象与夹爪的稀疏 3D keypoints | 统一表示过去、当前与未来交互动态 |
 | [VQ-Memory for Robust Long-Horizon Manipulation](https://arxiv.org/abs/2603.09513) | 离散化关节状态 token | 以 VQ-VAE 表示任务阶段与本体感觉历史 |
 | [mindmap: Spatial Memory in Deep Feature Maps for 3D Action Policies](https://arxiv.org/abs/2509.20297) | 语义 3D 重建与深层特征图 | 记忆视野外对象并生成 3D 动作轨迹 |
@@ -148,6 +149,7 @@
 | [MAP-VLA: Memory-Augmented Prompting for VLA in Robotic Manipulation](https://arxiv.org/abs/2511.09516) | 跨示范任务阶段 | 以可学习 soft prompts 表示并按轨迹相似度检索 |
 | [OptimusVLA: Global Prior Meets Local Consistency](https://arxiv.org/abs/2602.20200) | 跨示范先验与 episode 内动作 | Global Prior Memory 与 Local Consistency Memory |
 | [RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Lifelong Learning](https://arxiv.org/abs/2508.01415) | 跨任务终身记忆 | spatial、temporal、episodic、semantic memory 与动态知识图谱 |
+| [LifelongVLA: Towards Human-like Physical Intelligence via Lifelong Vision-Language-Action Learning](https://arxiv.org/abs/2607.14852) | 跨任务技能保持与持续扩展 | 以短期/长期双时间尺度 LoRA 门控平衡可塑性与稳定性，并通过 cache-efficient stochastic replay 巩固旧技能 |
 | [HiMe: Hierarchical Embodied Memory for Long-Horizon VLA Control](https://arxiv.org/abs/2607.03449) | 系统级快慢记忆 | Executor、Sentry、Planner 分层与 Add/Update/Delete 知识管理 |
 | [LoHo-Manip: Long-Horizon Manipulation via Trace-Conditioned VLA Planning](https://arxiv.org/abs/2604.21924) | 高层任务进度 | VLM 输出 done/remaining 语言记忆与 2D visual trace |
 | [Vesta: A Generalist Embodied Reasoning Model](https://arxiv.org/abs/2606.20905) | 高层规划与执行状态 | 历史帧与运行中的文本子任务 cache |
