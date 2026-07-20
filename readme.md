@@ -1,6 +1,6 @@
 # 机器人长期记忆与 Memory VLA 文献综述
 
-> 更新日期：2026-07-19
+> 更新日期：2026-07-20
 > 范围：Vision-Language-Action、长时程操作、部分可观测决策与机器人记忆
 
 ## 摘要
@@ -44,6 +44,8 @@
 | [Learning Long-Context Diffusion Policies via Past-Token Prediction](https://arxiv.org/abs/2505.09561) | 缓存长上下文特征，并以过去动作 token 预测作为辅助目标 | 长上下文 policy head |
 | [Efficient Long-Horizon VLA Models via Static-Dynamic Disentanglement](https://arxiv.org/abs/2602.03983) | 分离静态与动态视觉 token，通过 recache gate 更新静态内容 | 降低多帧冗余 |
 | [TempoFit: Plug-and-Play Layer-Wise Temporal KV Memory](https://arxiv.org/abs/2603.07647) | 缓存中间层 prefix K/V，相似度检索并施加时间衰减 | training-free 时间 KV 记忆 |
+| [Think at 5 Hz, Act at 20 Hz: Asynchronous Fast-Slow Vision-Language-Action Inference for Closed-Loop Driving](https://arxiv.org/abs/2607.15621) | 慢速 VLM 将视觉历史编码为逐层 KV cache，快速 action expert 融合当前帧读取 | 固定历史长度成本的异步快慢闭环控制 |
+| [Difference-Based Relational Learning for Zero-Shot Object-Goal Visual Navigation With Direct Sim-to-Real Transfer (T-DRN)](https://arxiv.org/abs/2607.15642) | 双帧 temporal buffer 与差分关系特征 | 窄视野下维持短期对象连续性并实现 sim-to-real 导航 |
 | [TraceVLA: Visual Trace Prompting Enhances Spatial-Temporal Awareness](https://arxiv.org/abs/2412.10345) | 将状态—动作轨迹渲染为当前图像上的视觉 trace | 无需潜在记忆库 |
 | [Instruction-driven History-aware Policies for Robotic Manipulations](https://arxiv.org/abs/2209.04899) | 联合编码语言、多视角观测与完整动作历史 | 早期全历史操作策略；CoRL 2022 |
 
@@ -67,6 +69,7 @@
 | [MemoryWAM: Memory-Augmented World Action Model for Long-Horizon Robot Manipulation](https://arxiv.org/abs/2606.20562) | 保留短期细节并递归压缩长期上下文 | 双时间尺度持久记忆 |
 | [HELM: Harness-Enhanced Long-horizon Memory for VLA Manipulation](https://arxiv.org/abs/2604.18791) | CLIP 索引关键帧、状态验证与失败回滚 | 策略外执行 harness 记忆 |
 | [PrediMem: Predictive Memory for Robotic Manipulation](https://arxiv.org/abs/2605.10921) | 近期/关键帧双缓冲 memory bank 与 predictive coding | 与 RoboMemArena 一同提出 |
+| [MemoGuard: An Adaptive Runtime for Guarding Against Memory Traps in Communication-Limited Robot Navigation](https://arxiv.org/abs/2607.15589) | 在复用情景记忆前验证拓扑、资源与历史结果约束 | 拒绝高相似但执行无效的 memory trap，仅在验证失败时调用本地推理 |
 | [E-TTS: A New Embodied Test-Time Scaling Framework for Robotic Manipulation](https://arxiv.org/abs/2606.27268) | history buffer 为 reasoning/action verifiers 提供历史上下文 | training-free 推理—动作联合采样、评分与闭环迭代 refinement |
 | [Scene Memory Transformer for Embodied Agents in Long-Horizon Tasks](https://arxiv.org/abs/1903.03878) | 将逐步观测嵌入场景记忆并以注意力读取时空依赖 | 面向长 episode 部分可观测导航的早期全历史记忆策略 |
 
@@ -119,6 +122,7 @@
 | [EchoVLA: Synergistic Declarative Memory for VLA-Driven Mobile Manipulation](https://arxiv.org/abs/2511.18112) | scene memory 与 episodic memory | 移动操作中的粗到细检索融合 |
 | [RoboStream: Weaving Spatio-Temporal Reasoning with Memory in Vision-Language Models for Robotics](https://arxiv.org/abs/2603.12939) | 绑定视觉证据与 3D 几何的 STF-Tokens、因果时空图 | training-free 持久对象 grounding 与动作触发状态转移追踪，支持遮挡下对象恒常性和长程 VLM 规划 |
 | [OASIS-Map: Object-Level Change Detection in Multi-Session Mapping using Semantic Correspondence Matching](https://arxiv.org/abs/2607.14899) | 跨 session 的时空一致对象地图 | 通过稠密 patch 级语义对应检测场景变化，并在遮挡、局部视图和分割误差下增量关联重访对象 |
+| [SkillNav: Score-Level Skill Intervention for Zero-Shot Object Goal Navigation](https://arxiv.org/abs/2607.15758) | curiosity value map 上的可写空间行为记忆与短提示语义记忆 | 以分级 score intervention 组合导航技能，无需训练且不增加历史 token 成本 |
 | [ChronoFlow-Policy: Unifying Past-Current-Future Interaction Flow](https://arxiv.org/abs/2606.31493) | 对象与夹爪的稀疏 3D keypoints | 统一表示过去、当前与未来交互动态 |
 | [VQ-Memory for Robust Long-Horizon Manipulation](https://arxiv.org/abs/2603.09513) | 离散化关节状态 token | 以 VQ-VAE 表示任务阶段与本体感觉历史 |
 | [mindmap: Spatial Memory in Deep Feature Maps for 3D Action Policies](https://arxiv.org/abs/2509.20297) | 语义 3D 重建与深层特征图 | 记忆视野外对象并生成 3D 动作轨迹 |
@@ -150,6 +154,7 @@
 | [OptimusVLA: Global Prior Meets Local Consistency](https://arxiv.org/abs/2602.20200) | 跨示范先验与 episode 内动作 | Global Prior Memory 与 Local Consistency Memory |
 | [RoboMemory: A Brain-inspired Multi-memory Agentic Framework for Lifelong Learning](https://arxiv.org/abs/2508.01415) | 跨任务终身记忆 | spatial、temporal、episodic、semantic memory 与动态知识图谱 |
 | [LifelongVLA: Towards Human-like Physical Intelligence via Lifelong Vision-Language-Action Learning](https://arxiv.org/abs/2607.14852) | 跨任务技能保持与持续扩展 | 以短期/长期双时间尺度 LoRA 门控平衡可塑性与稳定性，并通过 cache-efficient stochastic replay 巩固旧技能 |
+| [ABot-AgentOS: A General Robotic Agent OS with Lifelong Multi-modal Memory](https://arxiv.org/abs/2607.10350) | 跨场景、跨模态的持久图记忆 | 将对话、视觉、空间、时间与任务轨迹组织为类型化图，并以失败驱动的 gated evo-assets 持续演化；同时提出 EmbodiedWorldBench |
 | [HiMe: Hierarchical Embodied Memory for Long-Horizon VLA Control](https://arxiv.org/abs/2607.03449) | 系统级快慢记忆 | Executor、Sentry、Planner 分层与 Add/Update/Delete 知识管理 |
 | [LoHo-Manip: Long-Horizon Manipulation via Trace-Conditioned VLA Planning](https://arxiv.org/abs/2604.21924) | 高层任务进度 | VLM 输出 done/remaining 语言记忆与 2D visual trace |
 | [Vesta: A Generalist Embodied Reasoning Model](https://arxiv.org/abs/2606.20905) | 高层规划与执行状态 | 历史帧与运行中的文本子任务 cache |
