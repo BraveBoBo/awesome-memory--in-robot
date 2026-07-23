@@ -1,6 +1,6 @@
 # 机器人长期记忆与 Memory VLA 文献综述
 
-> 更新日期：2026-07-22
+> 更新日期：2026-07-23
 > 范围：Vision-Language-Action、长时程操作、部分可观测决策与机器人记忆
 
 ## 摘要
@@ -71,6 +71,7 @@
 | [PrediMem: Predictive Memory for Robotic Manipulation](https://arxiv.org/abs/2605.10921) | 近期/关键帧双缓冲 memory bank 与 predictive coding | 与 RoboMemArena 一同提出 |
 | [MemoGuard: An Adaptive Runtime for Guarding Against Memory Traps in Communication-Limited Robot Navigation](https://arxiv.org/abs/2607.15589) | 在复用情景记忆前验证拓扑、资源与历史结果约束 | 拒绝高相似但执行无效的 memory trap，仅在验证失败时调用本地推理 |
 | [WorldScape Policy 2.0: Empowering Steerable World Action Modeling with Reasoning-Augmented Memory](https://arxiv.org/abs/2607.18840) | 近期视觉 DiT prefill 与分层事件记忆 | 将历史 VLM 输出组织为 global-history、local-active 和 event-boundary 表示，并按任务进度检索以形成隐式子目标 |
+| [DART-VLN: Test-Time Memory Decay and Anti-Loop Regularization for Discrete Vision-Language Navigation](https://arxiv.org/abs/2607.01043) | 读取侧记忆衰减与局部回环惩罚 | training-free 抑制陈旧、冗余历史证据并减少立即折返，不改写记忆或冻结的导航 backbone |
 | [E-TTS: A New Embodied Test-Time Scaling Framework for Robotic Manipulation](https://arxiv.org/abs/2606.27268) | history buffer 为 reasoning/action verifiers 提供历史上下文 | training-free 推理—动作联合采样、评分与闭环迭代 refinement |
 | [Scene Memory Transformer for Embodied Agents in Long-Horizon Tasks](https://arxiv.org/abs/1903.03878) | 将逐步观测嵌入场景记忆并以注意力读取时空依赖 | 面向长 episode 部分可观测导航的早期全历史记忆策略 |
 
@@ -134,6 +135,7 @@
 | [VLN-AVP: Zero-Shot Vision-Language Navigation with Hybrid Long-Short-Term Memory for Autonomous Valet Parking](https://arxiv.org/abs/2607.17767) | 短期语义感知记忆与长期拓扑记忆 | 在无预建地图的开放词汇自主泊车中结合近期视觉线索与历史空间结构 |
 | [Closing the Loop in Humanoid VLA: Persistent 3D Object Tokens for Verifiable Loco-Manipulation](https://arxiv.org/abs/2607.18016) | 角色索引的持久 3D 对象记录 | 将 RGB-D 对象状态转换为动作与几何验证共享的 token，跨运动、接触、遮挡和恢复维持对象一致性 |
 | [Spatiotemporal Knowledge Graphs as Persistent Scene Memory for Embodied Question Answering](https://arxiv.org/abs/2510.01483) | 跨视频片段的时空知识图谱 | 维持对象身份并以子图检索结合视觉 grounding，使查询延迟不再随观测历史增长 |
+| [ReferTrack: Referring Then Tracking for Embodied Visual Tracking](https://arxiv.org/abs/2607.20061) | 历史目标框滑动窗口与 TVBI tokens | 将目标框的时间、视点和几何信息注入视觉历史，持续保留单目具身跟踪中的目标运动线索 |
 
 ### 3.6 语言、动作与多模态记忆
 
@@ -176,6 +178,11 @@
 | [PhyAgentOS: A Self-Evolving Operating System for Embodied Agents with Decoupled Cognitive Planning and Physical Execution](https://arxiv.org/abs/2607.16636) | 跨 embodiment 的验证执行经验 | 以 State-as-a-File 共享状态，并将验证后的结果沉淀为 epistemic memory、可复用知识与纠错经验 |
 | [Retriever: Composing Closed-Loop Asynchronous Robot Programs](https://arxiv.org/abs/2607.17213) | 有限记忆的异步闭环程序状态 | 以有状态因果流函数组合感知、belief、规划与控制，并支持日志驱动的确定性重放 |
 | [RoboHarness: Memory-Driven Orchestration of Heterogeneous Robot Policies for Long-Horizon Planning](https://arxiv.org/abs/2607.18060) | 跨策略多模态执行轨迹 | 由执行记忆刻画策略能力边界，Memory Bridge 检索下一策略的轨迹并引导机器人进入其分布内状态区域 |
+| [Robots Acquire Manipulation Skills in Seconds from a Single Human Video (HOST)](https://arxiv.org/abs/2607.20033) | 单视频即时技能获取与已有技能保持 | 依次估计任务进度、预测机器人未来观测并反推动作，在推理时快速学习新操作程序 |
+| [Extreme-RGMT: Continual Learning of Highly Dynamic Skills for Robust Generalist Humanoid Control](https://arxiv.org/abs/2607.20110) | 人形机器人技能获取与能力巩固 | 约束已掌握动作上的策略漂移，并以难度感知采样和 advantage-prioritized trajectory replay 强化高动态片段 |
+| [EgoRecovery: Acquiring Failure Recovery Ability Through Human Recovery Demonstration](https://arxiv.org/abs/2607.19745) | 人类与机器人共享的纠错意图经验 | 对齐人类恢复片段和少量机器人示范，由 recovery gate 在检测到失败状态时激活可执行纠错行为 |
+| [Courteous Anticipation: Improving Long-Lived Task Planning in Persistent Shared Environments](https://arxiv.org/abs/2607.20289) | 持久多机器人环境中的未来任务影响 | 估计当前计划终态对各机器人后续任务的期望成本，避免长期任务序列中的副作用累积 |
+| [Closing the Lab-to-Store Gap: A Data-Efficient Post-Training and Experience-Driven Learning VLA Framework for Retail Humanoids](https://arxiv.org/abs/2607.20345) | 零售真机执行经验 | DEED 结合文本 advantage prefix、视觉语言价值函数和针对性后训练，从真实经验改进 GR00T VLA |
 | [Episodic Memory Model for Learning Robotic Manipulation Tasks](https://arxiv.org/abs/2104.10218) | 单次示范经验 | 形成可分解、可重放的状态转移与动作序列 |
 | [Deep Episodic Memory: Encoding, Recalling, and Predicting Episodic Experiences](https://arxiv.org/abs/1801.04134) | 视觉—动作 episode | 无监督编码、相似经验检索、重建与未来预测 |
 
@@ -195,6 +202,8 @@
 | [Foresight Residual RL for Long-Horizon Robot Manipulation with Vision-Language-Action Models](https://arxiv.org/abs/2607.16506) | 当前子任务终态对应的下游 rollout 成功率 | 学习视觉 foresight predictor，并以未来子任务成功概率塑造残差策略的交接状态质量 |
 | [RoboInter1.5: A Holistic Intermediate Representation Suite for Embodied World Modeling and Robotic Manipulation](https://arxiv.org/abs/2607.18709) | 子任务、技能、对象、接触点与运动轨迹等稠密中间表示 | 以结构化表示同时约束 VLA 动作执行与未来世界状态 rollout，并提供 23 万余条操作 episode 和时空 VQA 评测 |
 | [STeP: Signal Temporal Logic for Precise Specifications for Action Generation with Vision Language Models](https://arxiv.org/abs/2607.18580) | 由语言生成的 Signal Temporal Logic 约束 | 以统一形式连接高层任务分解、低层控制、执行监控与重规划，使空间、时间和逻辑要求可检查 |
+| [Diffusion ReRoll: Revisable Denoising for Robotic Sequential Prediction](https://arxiv.org/abs/2607.19919) | 对已稳定序列区域选择性重新加噪 | 让早期与未来片段在去噪过程中相互修正，统一改善长程规划、动作序列和视频—动作预测 |
+| [Koopman Dreamer: Spectrally Constrained Latent Dynamics for Stable World-Model Imagination](https://arxiv.org/abs/2607.19719) | 带谱约束的 Koopman 潜在动力学 | 通过有界旋转—缩放模态、动作双线性项和多步目标控制长期想象的误差放大与信息保留 |
 
 ### 5.2 TBPTT、梯度截断与完整轨迹训练
 
@@ -228,6 +237,7 @@
 | [RuleSafe / VQ-Memory](https://arxiv.org/abs/2603.09513) | key、password 与 logic lock | articulated-object 仿真 | 用规则驱动的多阶段任务测试任务阶段、本体感觉与逻辑记忆 |
 | [RoboMemArena](https://arxiv.org/abs/2605.10921) | 26 个任务，平均轨迹超过 1,000 environment steps | 仿真与 5 个配对真机任务 | 68.9% 子任务被标注为 memory-dependent；提供子任务指令和原生关键帧标注，并报告 TSR/CSR |
 | [ReMemBench / PRISM](https://arxiv.org/abs/2606.16178) | 8 个家庭操作任务；spatial、prospective、associative、object-set | 仿真与真机适配 | 将短期记忆扩展到约 2 分钟，并研究 history length、注意力和计算成本 |
+| [KineBench](https://arxiv.org/abs/2607.19876) | 20 个 ManiSkill3 操作任务；具身世界模型闭环评测 | 从生成视频提取 6D 末端位姿并在物理模拟器执行 | 避免 IDM 误差混淆，联合任务成功、轨迹平滑度和运动学可行性评估未来世界预测 |
 
 ### 6.2 具身导航、个性化与持久世界状态
 
