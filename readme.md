@@ -1,6 +1,6 @@
 # 机器人长期记忆与 Memory VLA 文献综述
 
-> 更新日期：2026-07-23
+> 更新日期：2026-07-24
 > 范围：Vision-Language-Action、长时程操作、部分可观测决策与机器人记忆
 
 ## 摘要
@@ -136,6 +136,7 @@
 | [Closing the Loop in Humanoid VLA: Persistent 3D Object Tokens for Verifiable Loco-Manipulation](https://arxiv.org/abs/2607.18016) | 角色索引的持久 3D 对象记录 | 将 RGB-D 对象状态转换为动作与几何验证共享的 token，跨运动、接触、遮挡和恢复维持对象一致性 |
 | [Spatiotemporal Knowledge Graphs as Persistent Scene Memory for Embodied Question Answering](https://arxiv.org/abs/2510.01483) | 跨视频片段的时空知识图谱 | 维持对象身份并以子图检索结合视觉 grounding，使查询延迟不再随观测历史增长 |
 | [ReferTrack: Referring Then Tracking for Embodied Visual Tracking](https://arxiv.org/abs/2607.20061) | 历史目标框滑动窗口与 TVBI tokens | 将目标框的时间、视点和几何信息注入视觉历史，持续保留单目具身跟踪中的目标运动线索 |
+| [GLAM-SLAM: Efficient Dense Gaussian SLAM for Long-Horizon Large-Scale Scenes](https://arxiv.org/abs/2607.21416) | 稀疏锚点网格、光流稠密化与分区 Gaussian 地图 | 在长距离、大尺度序列中限制地图增长并保持实时稠密重建，为持久空间记忆提供可扩展底座 |
 
 ### 3.6 语言、动作与多模态记忆
 
@@ -204,6 +205,8 @@
 | [STeP: Signal Temporal Logic for Precise Specifications for Action Generation with Vision Language Models](https://arxiv.org/abs/2607.18580) | 由语言生成的 Signal Temporal Logic 约束 | 以统一形式连接高层任务分解、低层控制、执行监控与重规划，使空间、时间和逻辑要求可检查 |
 | [Diffusion ReRoll: Revisable Denoising for Robotic Sequential Prediction](https://arxiv.org/abs/2607.19919) | 对已稳定序列区域选择性重新加噪 | 让早期与未来片段在去噪过程中相互修正，统一改善长程规划、动作序列和视频—动作预测 |
 | [Koopman Dreamer: Spectrally Constrained Latent Dynamics for Stable World-Model Imagination](https://arxiv.org/abs/2607.19719) | 带谱约束的 Koopman 潜在动力学 | 通过有界旋转—缩放模态、动作双线性项和多步目标控制长期想象的误差放大与信息保留 |
+| [PhysCoRe: Physics-Based World Modeling with Residual Correction for Robotic Manipulation](https://arxiv.org/abs/2607.20653) | 可微 MPM、逐粒子材料参数估计与动力学残差修正 | 从少量交互中学习可校正的物理世界模型，并以不确定性引导探索和操作规划 |
+| [GS-Agent: A Multi-Agent System for Physically Plausible 4D World Generation](https://arxiv.org/abs/2607.21522) | 资产、材质、布局、运动与渲染代理协作 | 将语言任务转化为受物理引擎约束的动态 4D 场景，为具身世界模型的数据生成与未来模拟提供工具链 |
 
 ### 5.2 TBPTT、梯度截断与完整轨迹训练
 
@@ -238,6 +241,7 @@
 | [RoboMemArena](https://arxiv.org/abs/2605.10921) | 26 个任务，平均轨迹超过 1,000 environment steps | 仿真与 5 个配对真机任务 | 68.9% 子任务被标注为 memory-dependent；提供子任务指令和原生关键帧标注，并报告 TSR/CSR |
 | [ReMemBench / PRISM](https://arxiv.org/abs/2606.16178) | 8 个家庭操作任务；spatial、prospective、associative、object-set | 仿真与真机适配 | 将短期记忆扩展到约 2 分钟，并研究 history length、注意力和计算成本 |
 | [KineBench](https://arxiv.org/abs/2607.19876) | 20 个 ManiSkill3 操作任务；具身世界模型闭环评测 | 从生成视频提取 6D 末端位姿并在物理模拟器执行 | 避免 IDM 误差混淆，联合任务成功、轨迹平滑度和运动学可行性评估未来世界预测 |
+| [AXIS: A Scalable Data Engine for Generalist Robot Manipulation](https://arxiv.org/abs/2607.21588) | 207 个任务、超过 5 万条轨迹；可扩展机器人数据基础设施 | 浏览器遥操作与自动化任务生成、验证、过滤、轨迹平滑和增强 | 持续预训练 π0.5 后平均提升 5.8%，相对 RoboCasa365 提升 37.3%，用于检验数据覆盖对通用操作能力的影响 |
 
 ### 6.2 具身导航、个性化与持久世界状态
 
@@ -253,6 +257,8 @@
 | [BEHAVIOR Robot Suite](https://arxiv.org/abs/2503.05652) | 真实家庭环境中的双臂、移动和躯干全身操作平台 | 提供长距离导航及 articulated/deformable object 任务；可承载长程记忆评测，但不是专用记忆基准 |
 | [MultiON](https://papers.nips.cc/paper/2020/hash/6e01383fd96a17ae51cc3e15447e7533-Abstract.html) | 按指定顺序寻找多个目标 | 经典空间/语义地图记忆与闭环导航基准 |
 | [WorldLines](https://arxiv.org/abs/2606.18847) | 跨日 household traces、状态覆盖与用户历史 | 评估 Memory QA 和 embodied task planning，不执行低层闭环动作 |
+| [Beyond Episodic Evaluation: Memory Architectural Bottlenecks in Sequential Embodied Question Answering](https://arxiv.org/abs/2607.21571) | 同一场景连续提问并跨查询保留记忆；比较占据图与持久视觉—语义 3D 记忆 | 揭示仅保留二维可通行性不足以回答后续问题；将视觉证据绑定度量 3D 几何可同时改善问答准确率与导航效率 |
+| [VoLN: Vision-Only Long-Horizon Navigation](https://arxiv.org/abs/2607.21400) | 7,210 个连续 3D 无人机长程导航 episode；大视点变化与上下文相关信标选择 | 仅用视觉、目标视图、观测历史、检索式视觉—语义 token 和本体状态进行导航，诊断长程视觉记忆与目标识别能力 |
 
 ### 6.3 通用 POMDP 与记忆评测协议
 
